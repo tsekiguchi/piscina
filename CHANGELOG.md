@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0-alpha.0](https://github.com/piscinajs/piscina/compare/v4.6.1...v5.0.0-alpha.0) (2024-12-04)
+
+
+### Features
+
+* Custom Balancer ([#590](https://github.com/piscinajs/piscina/issues/590)) ([5c42b28](https://github.com/piscinajs/piscina/commit/5c42b28942f39399ea4aad39dd1f4367959c1e8f))
+* support Atomics.waitAsync ([#687](https://github.com/piscinajs/piscina/issues/687)) ([9c5a19e](https://github.com/piscinajs/piscina/commit/9c5a19ea491b159b82f23512811555a5c4aa2d3f))
+* use @napi-rs/nice to support Windows ([#655](https://github.com/piscinajs/piscina/issues/655)) ([c567394](https://github.com/piscinajs/piscina/commit/c56739465000f455fcf7abc2f83501054cab22a4))
+
+
+### Bug Fixes
+
+* adjust docusaurus ([5c3d2c9](https://github.com/piscinajs/piscina/commit/5c3d2c90ff0a00f338d194b20efdc6772d8e01e3))
+
 ### [4.6.1](https://github.com/piscinajs/piscina/compare/v4.6.0...v4.6.1) (2024-06-26)
 
 ## [4.6.0](https://github.com/piscinajs/piscina/compare/v4.5.2...v4.6.0) (2024-06-18)
