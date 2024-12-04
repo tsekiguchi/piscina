@@ -47,12 +47,20 @@ This class extends [`EventEmitter`](https://nodejs.org/api/events.html) from Nod
     only makes sense to specify if there is some kind of asynchronous component
     to the task. Keep in mind that Worker threads are generally not built for
     handling I/O in parallel.
-  - `useAtomics`: (`boolean`) Use the [`Atomics`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics) API for faster communication
+  - `atomics`: (`sync` | `async` | `disabled`) Use the [`Atomics`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics) API for faster communication
     between threads. This is on by default. You can disable `Atomics` globally by
-    setting the environment variable `PISCINA_DISABLE_ATOMICS` to `1`.
-    If `useAtomics` is `true`, it will cause to pause threads (stoping all execution)
+    setting the environment variable `PISCINA_DISABLE_ATOMICS` to `1` .
+    If `atomics` is `sync`, it will cause to pause threads (stoping all execution)
     between tasks. Ideally, threads should wait for all operations to finish before
-    returning control to the main thread (avoid having open handles within a thread).
+    returning control to the main thread (avoid having open handles within a thread). If still want to have the possibility
+    of having open handles or handle asynchrnous tasks, you can set the environment variable `PISCINA_ENABLE_ASYNC_ATOMICS` to `1` or setting `options.atomics` to `async`.
+
+**    :::info
+    **Note**: The `async` mode comes with performance penalties and can lead to undesired behaviour if open handles are not tracked correctly.
+    Workers should be designed to wait for all operations to finish before returning control to the main thread, if any background operations are still running
+    `async` can be of help (e.g. for cache warming, etc).
+    :::
+**
   - `resourceLimits`: (`object`) See [Node.js new Worker options](https://nodejs.org/api/worker_threads.html#worker_threads_new_worker_filename_options)
     - `maxOldGenerationSizeMb`: (`number`) The maximum size of each worker threads
       main heap in MB.
@@ -90,6 +98,9 @@ This class extends [`EventEmitter`](https://nodejs.org/api/events.html) from Nod
     complete all in-flight tasks when `close()` is called. The default is `30000`
   - `recordTiming`: (`boolean`) By default, run and wait time will be recorded
     for the pool. To disable, set to `false`.
+  - `workerHistogram`: (`boolean`) By default `false`. It will hint the Worker pool to record statistics for each individual Worker
+  - `loadBalancer`: ([`PiscinaLoadBalancer`](#piscinaloadbalancer)) By default, Piscina uses a least-busy algorithm. The `loadBalancer`
+    option can be used to provide an alternative implementation. See [Custom Load Balancers](../advanced-topics/loadbalancer.mdx) for additional detail.
   - `workerHistogram`: (`boolean`) By default `false`. It will hint the Worker pool to record statistics for each individual Worker
   - `loadBalancer`: ([`PiscinaLoadBalancer`](#piscinaloadbalancer)) By default, Piscina uses a least-busy algorithm. The `loadBalancer`
     option can be used to provide an alternative implementation. See [Custom Load Balancers](../advanced-topics/loadbalancer.mdx) for additional detail.
